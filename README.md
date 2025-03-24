@@ -60,6 +60,9 @@ dirt structure
 main
   src
     toplevel
+      gui.py
+      invoke.py
+      main.py
     74818
       python
         control.py
