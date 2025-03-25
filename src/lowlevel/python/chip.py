@@ -1,9 +1,69 @@
 def or_2_and_inputs(a_1: bin, a_2: bin, a_3: bin, b_1: bin, b_2: bin, b_3: bin) -> bin:
-    return (a_1 & a_2 & a_3) ^ (b_1 & b_2 & b_3)
+    return (a_1 & a_2 & a_3) | (b_1 & b_2 & b_3)
 
 
 def or_3_and_inputs(a_1: bin, a_2: bin, b_1: bin, b_2: bin, c_1: bin, c_2: bin) -> bin:
-    return (a_1 & a_2) ^ (b_1 & b_2) ^ (c_1 & c_2)
+    return (a_1 & a_2) | (b_1 & b_2) | (c_1 & c_2)
+
+
+def xor_4_and_inputs_1(
+    a_1: bin,
+    b_1: bin,
+    b_2: bin,
+    c_1: bin,
+    c_2: bin,
+    c_3: bin,
+    d_1: bin,
+    d_2: bin,
+    d_3: bin,
+    d_4: bin,
+) -> bin:
+    return (a_1) | (b_1 & b_2) | (c_1 & c_2 & c_3) | (d_1 & d_2 & d_3 & d_4)
+
+
+def xor_4_and_inputs_2(
+    a_1: bin,
+    a_2: bin,
+    a_3: bin,
+    a_4: bin,
+    b_1: bin,
+    b_2: bin,
+    b_3: bin,
+    b_4: bin,
+    c_1: bin,
+    c_2: bin,
+    c_3: bin,
+    d_1: bin,
+    d_2: bin,
+) -> bin:
+    return (
+        (a_1 & a_2 & a_3 & a_4)
+        | (b_1 & b_2 & b_3 & b_4)
+        | (c_1 & c_2 & c_3)
+        | (d_1 & d_2)
+    )
+
+
+def xor_to_much(
+    x_1: bin,
+    x_2: bin,
+    a_1: bin,
+    a_2: bin,
+    a_3: bin,
+    a_4: bin,
+    b_1: bin,
+    b_2: bin,
+    b_3: bin,
+    c_1: bin,
+    c_2: bin,
+) -> bin:
+    return (x_2 ^ x_1) ^ ~((a_1 & a_2 & a_3 & a_4) | (b_1 & b_2 & b_3) | (c_1 & c_2))
+
+
+def xor_2_and_gates(
+    x_1: bin, x_2: bin, a_1: bin, a_2: bin, a_3: bin, b_1: bin, b_2: bin
+) -> bin:
+    return (x_1 ^ x_2) ^ ~((a_1 & a_2 & a_3) | (b_1 & b_2))
 
 
 def chip(
@@ -51,3 +111,9 @@ def chip(
     nor_8: bin = ~or_3_and_inputs(~B0, S1, S0, B0, A0, A0)
 
     F0 = ~(~M & Cn) ^ (nor_8 ^ nor_7)
+
+    F1 = xor_2_and_gates(nor_6, nor_5, Cn, nor_7, ~M, nor_8, ~M)
+
+    F2 = xor_to_much()
+
+    F3 = xor_4_and_inputs_2()
