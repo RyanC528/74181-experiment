@@ -1,3 +1,7 @@
 venv
 .env
 
+#src
+#lowlevel
+#python
+src/lowlevel/python/pycache

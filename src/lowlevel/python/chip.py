@@ -13,20 +13,50 @@ def left_block2(A1: bin, A2: bin, B1: bin, B2: bin, C1: bin) -> bin:
     return ~((A1 & A2) | (B1 & B2) | (C1))
 
 
-def right_block1() -> bin:
-    pass
+def right_block1(
+    A1: bin,
+    B1: bin,
+    B2: bin,
+    C1: bin,
+    C2: bin,
+    C3: bin,
+    D1: bin,
+    D2: bin,
+    D3: bin,
+    D4: bin,
+) -> bin:
+    return ~((A1) | (B1 & B2) | (C1 & C2 & C3) | (D1 & D2 & D3 & D4))
 
 
-def right_block2() -> bin:
-    pass
+def right_block2(
+    A1: bin,
+    A2: bin,
+    A3: bin,
+    A4: bin,
+    A5: bin,
+    B1: bin,
+    B2: bin,
+    B3: bin,
+    B4: bin,
+    C1: bin,
+    C2: bin,
+    C3: bin,
+    D1: bin,
+    D2: bin,
+) -> bin:
+    return ~(
+        (A1 & A2 & A3 & A4 & A5) | (B1 & B2 & B3 & B4) | (C1 & C2 & C3) | (D1 & D2)
+    )
 
 
-def right_block3() -> bin:
-    pass
+def right_block3(
+    A1: bin, A2: bin, A3: bin, A4: bin, B1: bin, B2: bin, B3: bin, C1: bin, C2: bin
+) -> bin:
+    return ~((A1 & A2 & A3 & A4) | (B1 & B2 & B3) | (C1 & C2))
 
 
-def right_block4() -> bin:
-    pass
+def right_block4(A1: bin, A2: bin, A3: bin, B1: bin, B2: bin) -> bin:
+    return ~((A1 & A2 & A3) | (B1 & B2))
 
 
 def chip(
@@ -49,11 +79,10 @@ def chip(
     Cn: bin,
     M: bin,
     Cout: bin,
-    P: bin,
-) -> bin[4]:
+    PX: bin,
+) -> bin:
     # set
-    Vcc: bin = 1
-    Gnd: bin = 0
+    M = ~M
 
     # output
     F0: bin = 0
@@ -70,3 +99,19 @@ def chip(
     nor4 = left_block2(~B2, S1, S0, B2, A2)
     nor6 = left_block2(~B1, S1, S0, B1, A1)
     nor8 = left_block2(~B0, S1, S0, B0, A0)
+
+    F0 = (nor8 ^ nor7) ^ ~(M & Cn)
+    F1 = (nor6 ^ nor5) ^ right_block4(Cn, nor7, M, nor8, M)
+    F2 = (nor4 ^ nor3) ^ right_block3(Cn, nor7, nor5, M, nor5, nor8, M, nor6, M)
+    F3 = (nor2 ^ nor1) ^ right_block2(
+        Cn, nor7, nor5, nor3, M, nor5, nor3, nor8, M, nor3, nor6, M, nor4, M
+    )
+
+    AB = F0 & F1 & F2 & F3
+    Cout = right_block1(nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8) ^ (
+        nor1 & nor3 & nor5 & nor7 & Cn
+    )
+    PX = nor1 & nor3 & nor5 & nor7
+    GY = right_block1(nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8)
+
+    return F0, F1, F2, F3, AB, Cout, PX, GY
