@@ -1,54 +1,34 @@
 import sys
 
 import chip
+from typing import TextIO
 
 
-def chip_loop(command: str, file_out) -> None:
-    output: bytes[8]
+# input key A0, A1, A2, A3,  B0, B1, B2, B3,
+def read_file(file_in: TextIO, file_out: TextIO) -> list[int]:
 
-    hold: bytes[12] = command_to_bin(command)
+    output: list[int]
+    return output
 
-    output = chip.chip(
-        hold[0],
-        hold[1],
-        hold[2],
-        hold[3],
-        hold[4],
-        hold[5],
-        hold[6],
-        hold[7],
-        hold[8],
-        hold[9],
-        hold[10],
-        hold[11],
+
+def run_chip(command: list[int]) -> list[int]:
+
+    output: list[int]
+    return output
+
+
+# output key F0, F1, F2, F3,  AB, Cout, Px, Gy
+def write_file(output: list[int], file_out: TextIO) -> None:
+    file_out.write(
+        f"{output[0]}{output[1]}{output[2]}{output[3]} {output[4]}{output[5]}{output[6]}{output[7]}\n"
     )
 
-    file_out.writeline(bin_output(output))
 
-
-def command_to_bin(command: str) -> bytes[12]:
-    output: bytes[12]
-
-    for i, num in enumerate(command):
-        output[i] = bytes(num)
-
-    return output
-
-
-def bin_output(sum: bytes[8]):
-    output: str = ""
-
-    for bit in sum:
-        output.appemd(chr(bit))
-
-    return output
-
-
-def main():
+def main() -> None:
     if len(sys.argv) > 1:
-        file_path: str = sys.argv(1)
-        file_in = open(file_path + "files/input.txt", "r")
-        file_out = open(file_path + "files/output.txt", "w")
+        file_path: str = sys.argv[1]
+        file_in: TextIO = open(file_path + "files/input.txt", "r")
+        file_out: TextIO = open(file_path + "files/output.txt", "w")
 
     else:
         print("ERROR NO TEXT FILE GIVEN")

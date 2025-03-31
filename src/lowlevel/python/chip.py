@@ -88,9 +88,7 @@ def chip(
     # other
     Cn: int,
     M: int,
-    Cout: int,
-    PX: int,
-) -> List[int]:
+) -> list[int]:
     # set
     M = ~M
 
@@ -124,6 +122,6 @@ def chip(
     PX = nor1 & nor3 & nor5 & nor7
     GY = right_block1(nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8)
 
-    output: List[int] = [F0, F1, F2, F3, AB, Cout, PX, GY]
+    output: list[int] = [F0, F1, F2, F3, AB, Cout, PX, GY]
 
     return output
