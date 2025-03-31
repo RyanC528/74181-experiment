@@ -4,111 +4,111 @@
 
 # A,B,C... are and gates, O or gates and X xor gates
 
+from typing import List
 
-def left_block1(
-    A1: bytes, A2: bytes, A3: bytes, B1: bytes, B2: bytes, B3: bytes
-) -> bytes:
+
+def left_block1(A1: int, A2, A3: int, B1: int, B2: int, B3: int) -> int:
     return ~((A1 & A2 & A3) | (B1 & B2 & B3))
 
 
-def left_block2(A1: bytes, A2: bytes, B1: bytes, B2: bytes, C1: bytes) -> bytes:
+def left_block2(A1: int, A2: int, B1: int, B2: int, C1: int) -> int:
     return ~((A1 & A2) | (B1 & B2) | (C1))
 
 
 def right_block1(
-    A1: bytes,
-    B1: bytes,
-    B2: bytes,
-    C1: bytes,
-    C2: bytes,
-    C3: bytes,
-    D1: bytes,
-    D2: bytes,
-    D3: bytes,
-    D4: bytes,
-) -> bytes:
+    A1: int,
+    B1: int,
+    B2: int,
+    C1: int,
+    C2: int,
+    C3: int,
+    D1: int,
+    D2: int,
+    D3: int,
+    D4: int,
+) -> int:
     return ~((A1) | (B1 & B2) | (C1 & C2 & C3) | (D1 & D2 & D3 & D4))
 
 
 def right_block2(
-    A1: bytes,
-    A2: bytes,
-    A3: bytes,
-    A4: bytes,
-    A5: bytes,
-    B1: bytes,
-    B2: bytes,
-    B3: bytes,
-    B4: bytes,
-    C1: bytes,
-    C2: bytes,
-    C3: bytes,
-    D1: bytes,
-    D2: bytes,
-) -> bytes:
+    A1: int,
+    A2: int,
+    A3: int,
+    A4: int,
+    A5: int,
+    B1: int,
+    B2: int,
+    B3: int,
+    B4: int,
+    C1: int,
+    C2: int,
+    C3: int,
+    D1: int,
+    D2: int,
+) -> int:
     return ~(
         (A1 & A2 & A3 & A4 & A5) | (B1 & B2 & B3 & B4) | (C1 & C2 & C3) | (D1 & D2)
     )
 
 
 def right_block3(
-    A1: bytes,
-    A2: bytes,
-    A3: bytes,
-    A4: bytes,
-    B1: bytes,
-    B2: bytes,
-    B3: bytes,
-    C1: bytes,
-    C2: bytes,
-) -> bytes:
+    A1: int,
+    A2: int,
+    A3: int,
+    A4: int,
+    B1: int,
+    B2: int,
+    B3: int,
+    C1: int,
+    C2: int,
+) -> int:
     return ~((A1 & A2 & A3 & A4) | (B1 & B2 & B3) | (C1 & C2))
 
 
-def right_block4(A1: bytes, A2: bytes, A3: bytes, B1: bytes, B2: bytes) -> bytes:
+def right_block4(A1: int, A2: int, A3: int, B1: int, B2: int) -> int:
     return ~((A1 & A2 & A3) | (B1 & B2))
 
 
 def chip(
     # input 1
-    A0: bytes,
-    A1: bytes,
-    A2: bytes,
-    A3: bytes,
+    A0: int,
+    A1: int,
+    A2: int,
+    A3: int,
     # input 2
-    B0: bytes,
-    B1: bytes,
-    B2: bytes,
-    B3: bytes,
+    B0: int,
+    B1: int,
+    B2: int,
+    B3: int,
     # select
-    S0: bytes,
-    S1: bytes,
-    S2: bytes,
-    S3: bytes,
+    S0: int,
+    S1: int,
+    S2: int,
+    S3: int,
     # other
-    Cn: bytes,
-    M: bytes,
-    Cout: bytes,
-    PX: bytes,
-) -> bytes:
+    Cn: int,
+    M: int,
+    Cout: int,
+    PX: int,
+) -> List[int]:
     # set
     M = ~M
 
     # output
-    F0: bytes = 0
-    F1: bytes = 0
-    F2: bytes = 0
-    F3: bytes = 0
+    F0: int = 0
+    F1: int = 0
+    F2: int = 0
+    F3: int = 0
 
-    nor1 = left_block1(B3, S3, A3, A3, S2, ~B3)
-    nor3 = left_block1(B2, S3, A2, A2, S2, ~B2)
-    nor5 = left_block1(B1, S3, A1, A1, S2, ~B1)
-    nor7 = left_block1(B0, S3, A0, A0, S2, ~B0)
+    nor1: int = left_block1(B3, S3, A3, A3, S2, ~B3)
+    nor3: int = left_block1(B2, S3, A2, A2, S2, ~B2)
+    nor5: int = left_block1(B1, S3, A1, A1, S2, ~B1)
+    nor7: int = left_block1(B0, S3, A0, A0, S2, ~B0)
 
-    nor2 = left_block2(~B3, S1, S0, B3, A3)
-    nor4 = left_block2(~B2, S1, S0, B2, A2)
-    nor6 = left_block2(~B1, S1, S0, B1, A1)
-    nor8 = left_block2(~B0, S1, S0, B0, A0)
+    nor2: int = left_block2(~B3, S1, S0, B3, A3)
+    nor4: int = left_block2(~B2, S1, S0, B2, A2)
+    nor6: int = left_block2(~B1, S1, S0, B1, A1)
+    nor8: int = left_block2(~B0, S1, S0, B0, A0)
 
     F0 = (nor8 ^ nor7) ^ ~(M & Cn)
     F1 = (nor6 ^ nor5) ^ right_block4(Cn, nor7, M, nor8, M)
@@ -124,4 +124,6 @@ def chip(
     PX = nor1 & nor3 & nor5 & nor7
     GY = right_block1(nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8)
 
-    return F0, F1, F2, F3, AB, Cout, PX, GY
+    output: List[int] = [F0, F1, F2, F3, AB, Cout, PX, GY]
+
+    return output
