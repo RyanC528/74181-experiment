@@ -5,90 +5,100 @@
 # A,B,C... are and gates, O or gates and X xor gates
 
 
-def left_block1(A1: bin, A2: bin, A3: bin, B1: bin, B2: bin, B3: bin) -> bin:
+def left_block1(
+    A1: bytes, A2: bytes, A3: bytes, B1: bytes, B2: bytes, B3: bytes
+) -> bytes:
     return ~((A1 & A2 & A3) | (B1 & B2 & B3))
 
 
-def left_block2(A1: bin, A2: bin, B1: bin, B2: bin, C1: bin) -> bin:
+def left_block2(A1: bytes, A2: bytes, B1: bytes, B2: bytes, C1: bytes) -> bytes:
     return ~((A1 & A2) | (B1 & B2) | (C1))
 
 
 def right_block1(
-    A1: bin,
-    B1: bin,
-    B2: bin,
-    C1: bin,
-    C2: bin,
-    C3: bin,
-    D1: bin,
-    D2: bin,
-    D3: bin,
-    D4: bin,
-) -> bin:
+    A1: bytes,
+    B1: bytes,
+    B2: bytes,
+    C1: bytes,
+    C2: bytes,
+    C3: bytes,
+    D1: bytes,
+    D2: bytes,
+    D3: bytes,
+    D4: bytes,
+) -> bytes:
     return ~((A1) | (B1 & B2) | (C1 & C2 & C3) | (D1 & D2 & D3 & D4))
 
 
 def right_block2(
-    A1: bin,
-    A2: bin,
-    A3: bin,
-    A4: bin,
-    A5: bin,
-    B1: bin,
-    B2: bin,
-    B3: bin,
-    B4: bin,
-    C1: bin,
-    C2: bin,
-    C3: bin,
-    D1: bin,
-    D2: bin,
-) -> bin:
+    A1: bytes,
+    A2: bytes,
+    A3: bytes,
+    A4: bytes,
+    A5: bytes,
+    B1: bytes,
+    B2: bytes,
+    B3: bytes,
+    B4: bytes,
+    C1: bytes,
+    C2: bytes,
+    C3: bytes,
+    D1: bytes,
+    D2: bytes,
+) -> bytes:
     return ~(
         (A1 & A2 & A3 & A4 & A5) | (B1 & B2 & B3 & B4) | (C1 & C2 & C3) | (D1 & D2)
     )
 
 
 def right_block3(
-    A1: bin, A2: bin, A3: bin, A4: bin, B1: bin, B2: bin, B3: bin, C1: bin, C2: bin
-) -> bin:
+    A1: bytes,
+    A2: bytes,
+    A3: bytes,
+    A4: bytes,
+    B1: bytes,
+    B2: bytes,
+    B3: bytes,
+    C1: bytes,
+    C2: bytes,
+) -> bytes:
     return ~((A1 & A2 & A3 & A4) | (B1 & B2 & B3) | (C1 & C2))
 
 
-def right_block4(A1: bin, A2: bin, A3: bin, B1: bin, B2: bin) -> bin:
+def right_block4(A1: bytes, A2: bytes, A3: bytes, B1: bytes, B2: bytes) -> bytes:
     return ~((A1 & A2 & A3) | (B1 & B2))
 
 
 def chip(
     # input 1
-    A0: bin,
-    A1: bin,
-    A2: bin,
-    A3: bin,
+    A0: bytes,
+    A1: bytes,
+    A2: bytes,
+    A3: bytes,
     # input 2
-    B0: bin,
-    B1: bin,
-    B2: bin,
-    B3: bin,
+    B0: bytes,
+    B1: bytes,
+    B2: bytes,
+    B3: bytes,
     # select
-    S0: bin,
-    S1: bin,
-    S2: bin,
-    S3: bin,
+    S0: bytes,
+    S1: bytes,
+    S2: bytes,
+    S3: bytes,
     # other
-    Cn: bin,
-    M: bin,
-    Cout: bin,
-    PX: bin,
-) -> bin:
+    Cn: bytes,
+    M: bytes,
+    Cout: bytes,
+    PX: bytes,
+) -> bytes:
     # set
     M = ~M
 
     # output
-    F0: bin = 0
-    F1: bin = 0
-    F2: bin = 0
-    F3: bin = 0
+    F0: bytes = 0
+    F1: bytes = 0
+    F2: bytes = 0
+    F3: bytes = 0
 
     nor1 = left_block1(B3, S3, A3, A3, S2, ~B3)
     nor3 = left_block1(B2, S3, A2, A2, S2, ~B2)

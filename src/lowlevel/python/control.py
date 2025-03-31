@@ -1,11 +1,12 @@
-import chip
 import sys
+
+import chip
 
 
 def chip_loop(command: str, file_out) -> None:
-    output: bin[8]
+    output: bytes[8]
 
-    hold: bin[12] = command_to_bin(command)
+    hold: bytes[12] = command_to_bin(command)
 
     output = chip.chip(
         hold[0],
@@ -25,16 +26,16 @@ def chip_loop(command: str, file_out) -> None:
     file_out.writeline(bin_output(output))
 
 
-def command_to_bin(command: str) -> bin[12]:
-    output: bin[12]
+def command_to_bin(command: str) -> bytes[12]:
+    output: bytes[12]
 
     for i, num in enumerate(command):
-        output[i] = bin(num)
+        output[i] = bytes(num)
 
     return output
 
 
-def bin_output(sum: bin[8]):
+def bin_output(sum: bytes[8]):
     output: str = ""
 
     for bit in sum:
