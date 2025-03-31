@@ -1,14 +1,12 @@
 import sys
+from typing import TextIO
 
 import chip
-from typing import TextIO
 
 
 # input key A0, A1, A2, A3,  B0, B1, B2, B3,
-def read_file(file_in: TextIO, file_out: TextIO) -> list[int]:
-
-    output: list[int]
-    return output
+def read_file(file_in: TextIO, file_out: TextIO) -> None:
+    pass
 
 
 def run_chip(command: list[int]) -> list[int]:
@@ -29,6 +27,10 @@ def main() -> None:
         file_path: str = sys.argv[1]
         file_in: TextIO = open(file_path + "files/input.txt", "r")
         file_out: TextIO = open(file_path + "files/output.txt", "w")
+        read_file(file_in, file_out)
+
+        file_in.close()
+        file_out.close()
 
     else:
         print("ERROR NO TEXT FILE GIVEN")
