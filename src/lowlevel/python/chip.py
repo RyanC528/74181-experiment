@@ -11,7 +11,7 @@ def bit_not(a: int) -> int:
     return 1 - a
 
 
-def left_block1(A1: int, A2, A3: int, B1: int, B2: int, B3: int) -> int:
+def left_block1(A1: int, A2: int, A3: int, B1: int, B2: int, B3: int) -> int:
     return bit_not((A1 & A2 & A3) | (B1 & B2 & B3))
 
 
