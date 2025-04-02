@@ -6,12 +6,47 @@ import chip
 
 # input key A0, A1, A2, A3,  B0, B1, B2, B3,
 def read_file(file_in: TextIO, file_out: TextIO) -> None:
-    pass
+    command: list[int] = [
+        0,  # A0
+        0,  # A1
+        0,  # A2
+        0,  # A3
+        0,  # B0
+        0,  # B1
+        0,  # B2
+        0,  # B3
+        0,  # S0
+        0,  # S1
+        0,  # S2
+        0,  # S3
+        0,  # CN
+        0,  # M
+    ]
+    for line in file_in:
+        command[0] = int(line[0])
+        command[1] = int(line[1])
+        command[2] = int(line[2])
+        command[3] = int(line[3])
+
+        command[4] = int(line[5])
+        command[5] = int(line[6])
+        command[6] = int(line[7])
+        command[7] = int(line[8])
+
+        command[8] = int(line[10])
+        command[9] = int(line[11])
+        command[10] = int(line[12])
+        command[11] = int(line[13])
+
+        command[12] = int(line[15])
+        command[13] = int(line[16])
+
+        run_chip(command)
 
 
 def run_chip(command: list[int]) -> list[int]:
 
-    output: list[int]
+    output: list[int] = chip.chip(command)
     return output
 
 
