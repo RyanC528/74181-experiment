@@ -1,2 +1,7 @@
+from gui import GUI
+from class_dec import *
+
+
 if __name__ == "__main__":
-    pass
+    gui = GUI()
+    gui.mainloop()
