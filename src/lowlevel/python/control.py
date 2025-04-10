@@ -57,7 +57,7 @@ def write_file(output: list[int], file_out: TextIO) -> None:
     )
 
 
-def main() -> None:
+def main() -> int:
     if len(sys.argv) > 1:
         file_path: str = sys.argv[1]
         file_in: TextIO = open(file_path + "files/input.txt", "r")
@@ -67,6 +67,10 @@ def main() -> None:
         file_in.close()
         file_out.close()
 
+        return 1
+
     else:
         print("ERROR NO TEXT FILE GIVEN")
         sys.exit(1)
+
+        return 0
