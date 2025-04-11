@@ -67,10 +67,10 @@ def main() -> int:
         file_in.close()
         file_out.close()
 
-        return 1
+        return 0
 
     else:
         print("ERROR NO TEXT FILE GIVEN")
         sys.exit(1)
 
-        return 0
+        return 1
