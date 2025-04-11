@@ -3,6 +3,7 @@ from gui import GUI
 from dataclasses import dataclass
 from invoke import run_program
 
+#idk where to put this besides main
 @dataclass
 class lang_info:
     #input vars

@@ -1,5 +1,14 @@
 package main
 
+// extracts bits because kotlin doesnt have a function to do it
+// inputs byte and index
+// outputs byte with bit same as byte[index] rest
+fun extract_bit(In: Byte, i: Int) {
+    val base_byte: Byte = (0b00000001 shl i)
+
+    return In and base_byte
+}
+
 fun left_block1(A1: Byte, A2: Byte, A3: Byte, B1: Byte, B2: Byte, B3: Byte): Byte {
     var output: Byte
 

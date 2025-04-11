@@ -46,7 +46,23 @@ def read_file(file_in: TextIO, file_out: TextIO) -> None:
 
 def run_chip(command: list[int]) -> list[int]:
 
-    output: list[int] = chip.chip(command)
+    output: list[int] = chip.chip(
+        #changed edditor and now wont take command as an input
+        command[0],
+        command[1],
+        command[2],
+        command[3],
+        command[4],
+        command[5],
+        command[6],
+        command[7],
+        command[8],
+        command[9],
+        command[10],
+        command[11],
+        command[12],
+        command[13]
+    )
     return output
 
 
