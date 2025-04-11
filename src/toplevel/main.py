@@ -1,7 +1,7 @@
 from gui import GUI
 
 from dataclasses import dataclass
-from invoke import run_progam
+from invoke import run_program
 
 @dataclass
 class lang_info:

@@ -19,7 +19,7 @@ def invoke(lang:lang_info, in_file: str) -> bool:
         return True
 
 
-def run_progam(langs: list[lang_info], in_file: str, gui: GUI) -> None:
+def run_program(langs: list[lang_info], in_file: str, gui: GUI) -> None:
     start_time: float = 0
     end_time: float = 0
 
