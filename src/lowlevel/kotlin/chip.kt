@@ -125,13 +125,11 @@ fun chip(
     )
 
     val AB: Int = F0 and F1 and F2 and F3
-    val cout: Int = right_block1(
-        nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8) ^ (nor1 & nor3 & nor5 & nor7 & Cn)
-    )
+    val cout: Int = right_block1(nor2, nor1, nor4, nor1, nor3, nor6, nor1, nor3, nor5, nor8) xor (nor1 and nor3 and nor5 and nor7 and Cn)
     val PX: Int = nor1 and nor3 and nor5 and nor7
-    val GY: Int = right_block1(nor2, nor1, nor4, nor3, nor6, nor1, nor3, nor5, nor8)
+    val GY: Int = right_block1(nor2, nor1, nor4,nor1, nor3, nor6, nor1, nor3, nor5, nor8)
 
-    val output: IntArray = IntArray(8){ F0, F1, F2, F3, AB, cout, PX, GY}
+    val output: IntArray = intArrayOf(F0, F1, F2, F3, AB, cout, PX, GY)
 
     return output
 }
