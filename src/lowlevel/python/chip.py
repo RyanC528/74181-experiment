@@ -4,9 +4,6 @@
 
 # A,B,C... are and gates, O or gates and X xor gates
 
-from typing import List
-
-
 def bit_not(a: int) -> int:
     return 1 - a
 
